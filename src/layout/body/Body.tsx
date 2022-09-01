@@ -22,6 +22,11 @@ export default Body;
 
 const Container = styled.div`
    background : ${color.brand2};
-   min-height: 100%;
-   width: 100%;
+   height: 100vh;
+   /* width: 100%; */
+  
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding: 2rem;
 `;

@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createTheme } from '@mui/material';
+import { ThemeProvider } from "@mui/material/styles";
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -7,9 +9,22 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Raleway', "sans-serif"
+    ].join(','),
+  },
+});
+
+
+
 root.render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
