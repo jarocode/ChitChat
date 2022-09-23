@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import {IoSearchOutline} from "react-icons/io5";
 
 import { color } from 'theme';
+import ChatUsers from '../chatusers/ChatUsers';
 
 const SideBar = () => {
+  const users = [1,2,3,4,5];
   return (
     <Container>
       <SearchDiv>
         <IoSearchOutline/>
         <Input placeholder='SEARCH'/>
       </SearchDiv>
-      <Div></Div>
+      <Div>{users.map(el => <ChatUsers name="Jessie woo"/>)}</Div>
     </Container>
   )
 }
@@ -39,9 +41,11 @@ const SearchDiv = styled.div`
 
 const Div = styled.div`
   background: ${color.white};
+  padding-top: 2rem;
   width: 100%;
   height: 30rem;
   border-radius: 20px;
+  overflow: auto;
 `;
 
 const Input = styled.input`
