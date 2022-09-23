@@ -27,8 +27,14 @@ export default ChatUsers;
 const Container = styled.div`
   display: flex;
   gap: 1rem;
-  width: 90%;
-  padding: 1rem;
+  width: 100%;
+  padding: 1rem 1rem 0 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  cursor : pointer;
+  &:hover{
+    background: ${color.brand2};
+  }
 `;
 
 const Div = styled.div`

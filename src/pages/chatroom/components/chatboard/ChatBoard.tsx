@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { color } from "theme";
 import ChatContainer from "../chatcontainer/ChatContainer";
+import ChatInput from "../chatinput/ChatInput";
 
 const ChatBoard = () => {
   const chatHistory = [
@@ -21,7 +22,7 @@ const ChatBoard = () => {
       time: "10: 00pm",
       isUser: true,
     },
-    { name: "You", message: "What about you?", time: "10: 00pm", isUser: true },
+    { name: "You", message: "What about you?", time: "10:00pm", isUser: true },
   ];
   return (
     <Container>
@@ -40,6 +41,7 @@ const ChatBoard = () => {
           />
         ))}
       </ChatBody>
+      <ChatInput/>
     </Container>
   );
 };
@@ -51,6 +53,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
 `;
 
 const ChatHeader = styled.div`
@@ -70,8 +73,23 @@ const Button = styled.button`
 const ChatBody = styled.div`
   width: 100%;
   background: ${color.white};
-  height: 30rem;
+  height: 25rem;
   overflow: auto;
-  border-radius: 20px;
-  padding: 2rem 2rem 0 2rem;
+  border-radius: 20px 20px 0 0;
+  padding: 2rem 2.5rem 1rem 2.5rem;
+  box-sizing: border-box; 
+  ::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(78, 66, 109, .4);
+  opacity: 0.6;
+  border-radius: 10px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(78, 66, 109, .4);
+}
+
 `;
