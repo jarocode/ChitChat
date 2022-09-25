@@ -93,7 +93,6 @@ const Btn = styled.button<ButtonProps>`
     font-family: Raleway;
     margin: ${margin};
     padding: ${padding};
-    text-transform: uppercase;
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease-in;
