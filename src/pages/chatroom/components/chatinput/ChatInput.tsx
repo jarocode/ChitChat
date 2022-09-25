@@ -1,27 +1,58 @@
-import React from 'react';
+import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 import styled from "styled-components";
-import {RiSendPlaneFill} from "react-icons/ri";
-import {BsEmojiSmile} from "react-icons/bs";
-import {ImAttachment} from "react-icons/im";
+import { RiSendPlaneFill } from "react-icons/ri";
+import { BsEmojiSmile, BsFillMicFill } from "react-icons/bs";
+import { ImAttachment } from "react-icons/im";
+import Picker from "emoji-picker-react";
 
 import { color } from "theme";
 import Button from "components/button/Button";
 
-interface ChatInputProps {
-    
-}
+interface ChatInputProps {}
 
-const ChatInput: React.FC<ChatInputProps> = ({  }) => {
-     const handleClick = () => {
-         return null;
-     }
-    return (
-       <Container>
-       
-    <SearchDiv>
-        <BsEmojiSmile size="1.7rem" style={{cursor: "pointer"}}/>
-        <Input placeholder='Type a message'/>
-        <ImAttachment  size="1.7rem" style={{cursor: "pointer"}}/>
+
+
+const ChatInput: React.FC<ChatInputProps> = ({}) => {
+  const [showPicker, setShowPicker] = useState<boolean>();
+  const [message, setMessage] = useState<string>();
+  
+  React.useEffect(() => {
+      console.log(message)
+  }, [message])
+  
+  
+  const onEmojiClick = (event : any, emojiObject: { emoji: any; }) => {
+     setMessage(prev => 
+      prev?
+         `${prev}${emojiObject?.emoji}` :`${emojiObject?.emoji}`);
+  };
+  const handleClick = () => {
+    setMessage("");
+  };
+    
+  const handleChange : ChangeEventHandler<HTMLInputElement> = (e : ChangeEvent<HTMLInputElement>) => {
+      setMessage(e?.target?.value);
+  }
+
+  return (
+    <Container>
+      <BsFillMicFill size="1.7rem" style={{ cursor: "pointer" }} />
+      <SearchDiv>
+        <BsEmojiSmile
+          size="1.7rem"
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowPicker((prev) => !prev)}
+        />
+        <Input placeholder="Type a message" value={message} onChange={handleChange}/>
+        <ImAttachment size="1.7rem" style={{ cursor: "pointer" }} />
+        {showPicker && (
+          <PickerDiv>
+            <Picker
+              onEmojiClick={onEmojiClick}
+              pickerStyle={{ width: "100%" }}
+            />
+          </PickerDiv>
+        )}
       </SearchDiv>
       <Button
         bgColor={color.green}
@@ -32,8 +63,8 @@ const ChatInput: React.FC<ChatInputProps> = ({  }) => {
         onKeyPress={() => null}
         onClick={handleClick}
       />
-        </Container>
-    );
+    </Container>
+  );
 };
 
 export default ChatInput;
@@ -47,11 +78,13 @@ const Container = styled.div`
   box-sizing: border-box;
   gap: 2rem;
   margin-top: -2rem;
-  border-radius:  0 0 2rem 2rem;
+  border-radius: 0 0 2rem 2rem;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const SearchDiv = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   height: 4rem;
@@ -62,7 +95,11 @@ const SearchDiv = styled.div`
   padding: 0 1.2rem;
   gap: 1rem;
   width: 100%;
- 
+`;
+
+const PickerDiv = styled.div`
+  position: absolute;
+  bottom: 4.5rem;
 `;
 
 const Input = styled.input`
@@ -73,4 +110,3 @@ const Input = styled.input`
   font-size: 17px;
   width: 100%;
 `;
-

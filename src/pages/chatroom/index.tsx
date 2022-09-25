@@ -5,10 +5,7 @@ import Layout from "layout";
 import SideBar from './components/sidebar/SideBar';
 import ChatBoard from './components/chatboard/ChatBoard';
 
-interface AppProps {
-    
-}
-
+interface AppProps {}
 const index: React.FC<AppProps> = ({  }) => {
     return (
         <Layout>
