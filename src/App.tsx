@@ -7,12 +7,13 @@ import {
 } from "react-router-dom";
 
 import ChatRoom from "pages/chatroom";
+import Auth from "pages/auth";
 
 const App = () => {
   return (
     <Router>
     <Routes>
-      <Route path="/" element={<><h1>login</h1></>} />
+      <Route path="/" element={<Auth/>} />
       <Route
         path="/chatroom"
         element={<ChatRoom/>}

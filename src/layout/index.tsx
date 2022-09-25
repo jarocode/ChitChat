@@ -1,14 +1,15 @@
 import React from 'react';
 import Body from './body/Body';
 
-type Children = {
+type Props = {
+  showHeader?: boolean,
   children : JSX.Element
 }
 
 
-const index : React.FC<Children>  = ({children}) => {
+const index : React.FC<Props>  = ({children, showHeader}) => {
   return (
-   <Body children={children}/>
+   <Body children={children} showHeader={showHeader}/>
   )
 }
 

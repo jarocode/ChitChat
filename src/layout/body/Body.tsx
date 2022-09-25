@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import Header from 'layout/header/Header';
 import { color } from 'theme';
 
-type Children = {
-     children : JSX.Element
+type BodyProps = {
+    showHeader?: boolean,
+     children : JSX.Element,
 }
 
 
-const Body:  React.FC<Children> = ({children}) => {
+const Body:  React.FC<BodyProps> = ({children, showHeader}) => {
   return (
     <Container>
-    <Header/>
+   {showHeader && <Header/>}
     {children}
     </Container>
   )

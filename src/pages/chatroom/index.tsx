@@ -8,7 +8,7 @@ import ChatBoard from './components/chatboard/ChatBoard';
 interface AppProps {}
 const index: React.FC<AppProps> = ({  }) => {
     return (
-        <Layout>
+        <Layout showHeader>
         <Container>
             <SideBar/>
             <ChatBoard/>
