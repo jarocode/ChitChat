@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { createTheme } from '@mui/material';
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from '@mui/material/styles';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -10,21 +11,29 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      'Raleway', "sans-serif"
-    ].join(','),
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1,
+    },
   },
 });
 
-
+const theme = createTheme({
+  typography: {
+    fontFamily: ['Raleway', 'sans-serif'].join(','),
+  },
+});
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-    <App />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
