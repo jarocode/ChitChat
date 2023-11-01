@@ -10,7 +10,7 @@ import Button from 'components/button/Button';
 
 interface ChatInputProps {}
 
-const ChatInput: React.FC<ChatInputProps> = ({}) => {
+const ChatInput: React.FC<ChatInputProps> = () => {
   const [showPicker, setShowPicker] = useState<boolean>();
   const [message, setMessage] = useState<string>();
 
