@@ -1,28 +1,34 @@
-import { Typography } from "@mui/material";
-import React from "react";
-import styled from "styled-components";
+import { Typography } from '@mui/material';
+import styled from 'styled-components';
+import { io } from 'socket.io-client';
 
-import { color } from "theme";
-import ChatContainer from "../chatcontainer/ChatContainer";
-import ChatInput from "../chatinput/ChatInput";
+import { color } from 'theme';
+import ChatContainer from '../chatcontainer/ChatContainer';
+import ChatInput from '../chatinput/ChatInput';
 
 const ChatBoard = () => {
+  const socket = io('http://localhost:8080');
+
+  socket.on('connect', () => {
+    console.log(socket.id);
+  });
+
   const chatHistory = [
-    { name: "Bisi", message: "Hello", isUser: false, time: "9:00pm" },
-    { name: "You", message: "hi", time: "9:15pm", isUser: true },
+    { name: 'Bisi', message: 'Hello', isUser: false, time: '9:00pm' },
+    { name: 'You', message: 'hi', time: '9:15pm', isUser: true },
     {
-      name: "Bisi",
-      message: "Any plans for tonight",
+      name: 'Bisi',
+      message: 'Any plans for tonight',
       isUser: false,
-      time: "9:30pm",
+      time: '9:30pm',
     },
     {
-      name: "You",
-      message: "Ermm...nothing much",
-      time: "10: 00pm",
+      name: 'You',
+      message: 'Ermm...nothing much',
+      time: '10: 00pm',
       isUser: true,
     },
-    { name: "You", message: "What about you?", time: "10:00pm", isUser: true },
+    { name: 'You', message: 'What about you?', time: '10:00pm', isUser: true },
   ];
   return (
     <Container>
@@ -41,7 +47,7 @@ const ChatBoard = () => {
           />
         ))}
       </ChatBody>
-      <ChatInput/>
+      <ChatInput socket={socket} />
     </Container>
   );
 };
@@ -53,7 +59,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
 `;
 
 const ChatHeader = styled.div`
@@ -77,19 +82,18 @@ const ChatBody = styled.div`
   overflow: auto;
   border-radius: 20px 20px 0 0;
   padding: 2rem 2.5rem 1rem 2.5rem;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   ::-webkit-scrollbar {
-  width: 5px;
-}
+    width: 5px;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(78, 66, 109, .4);
-  opacity: 0.6;
-  border-radius: 10px;
-  cursor: pointer;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(78, 66, 109, .4);
-}
-
+  ::-webkit-scrollbar-thumb {
+    background: rgba(78, 66, 109, 0.4);
+    opacity: 0.6;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 66, 109, 0.4);
+  }
 `;

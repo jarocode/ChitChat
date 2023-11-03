@@ -1,5 +1,6 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Socket } from 'socket.io-client';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import { BsEmojiSmile, BsFillMicFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
@@ -8,11 +9,22 @@ import Picker from 'emoji-picker-react';
 import { color } from 'theme';
 import Button from 'components/button/Button';
 
-interface ChatInputProps {}
+interface ChatInputProps {
+  socket: Socket;
+}
 
-const ChatInput: React.FC<ChatInputProps> = () => {
+const ChatInput: React.FC<ChatInputProps> = ({ socket }) => {
   const [showPicker, setShowPicker] = useState<boolean>();
   const [message, setMessage] = useState<string>();
+
+  React.useEffect(() => {
+    socket.on('chat', (data) => {
+      console.log('received', data);
+    });
+    // return () => {
+    //   socket.disconnect();
+    // };
+  }, [socket]);
 
   const onEmojiClick = (event: any, emojiObject: { emoji: any }) => {
     setMessage((prev) =>
@@ -21,11 +33,15 @@ const ChatInput: React.FC<ChatInputProps> = () => {
   };
   const handleClick = () => {
     setMessage('');
+
+    socket.emit('chat', { chat: message, id: 2 });
   };
 
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) return handleClick();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e?.target?.value);
   };
 
@@ -42,6 +58,7 @@ const ChatInput: React.FC<ChatInputProps> = () => {
           placeholder='Type a message'
           value={message}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <ImAttachment size='1.7rem' style={{ cursor: 'pointer' }} />
         {showPicker && (
@@ -59,7 +76,6 @@ const ChatInput: React.FC<ChatInputProps> = () => {
         height='4rem'
         width='4rem'
         borderRadius={'50%'}
-        onKeyPress={() => null}
         onClick={handleClick}
       />
     </Container>
