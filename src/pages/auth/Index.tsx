@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Layout from 'layout';
 import LoginForm from './components/login/LoginForm';
@@ -10,11 +12,14 @@ const Auth: React.FC<AuthProps> = () => {
   const [showLogin, setShowLogin] = useState<boolean>();
   return (
     <Layout>
-      {showLogin ? (
-        <LoginForm setShowLogin={setShowLogin} />
-      ) : (
-        <RegisterForm setShowLogin={setShowLogin} />
-      )}
+      <>
+        <ToastContainer />
+        {showLogin ? (
+          <LoginForm setShowLogin={setShowLogin} />
+        ) : (
+          <RegisterForm setShowLogin={setShowLogin} />
+        )}
+      </>
     </Layout>
   );
 };

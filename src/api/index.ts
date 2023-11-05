@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+declare global {
+  interface Window {
+    configs: {
+      baseURL: string;
+    };
+  }
+}
+
 const api = axios.create({
   // baseURL: window.configs?.baseURL,
   baseURL: 'http://localhost:8080/api',
